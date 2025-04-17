@@ -30,7 +30,6 @@ const CollapsibleSection = ({ title, children }: { title: string; children: Reac
     </View>
   );
 };
-
 const Page = () => {
   const analysis = useAtomValue(analysisAtom);
 

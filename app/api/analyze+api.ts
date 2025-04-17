@@ -48,7 +48,7 @@ export async function POST(req: Request): Promise<Response> {
     Make sure to calculate both portion-based and per 100g nutritional values for easy comparison.`;
 
     const result = await model.generateContent([prompt, image]);
-    const response = await result.response;
+    const response =  result.response;
     const text = response.text();
 
     // Clean up the response text to remove any markdown formatting

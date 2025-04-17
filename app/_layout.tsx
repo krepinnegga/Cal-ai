@@ -1,10 +1,20 @@
 import { Stack } from 'expo-router';
 import { useRouter } from 'expo-router';
-import { Button, TouchableOpacity } from 'react-native';
+import {  View, TouchableOpacity } from 'react-native';
+import { StatusBar } from 'expo-status-bar';
+
 import Ionicons from '@expo/vector-icons/Ionicons';
+
 export default function RootLayout() {
   const router = useRouter();
   return (
+   <View style={{ flex: 1, backgroundColor: '#EEFBFF' }}>
+       <StatusBar
+           style="dark"
+           backgroundColor={'#EEFBFF'}
+           translucent={true}
+       />
+
     <Stack>
       <Stack.Screen name="index" options={{ headerShown: false }} />
       <Stack.Screen
@@ -20,5 +30,6 @@ export default function RootLayout() {
         }}
       />
     </Stack>
+   </View>
   );
 }
