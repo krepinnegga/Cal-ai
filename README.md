@@ -1,50 +1,117 @@
-# Welcome to your Expo app 👋
+# Cal-AI: AI-Powered Calendar Assistant
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+## Overview
+Cal-AI is a modern, AI-powered calendar assistant built with React Native and Expo. It leverages generative AI to help users manage their schedules more efficiently through natural language processing and intelligent scheduling suggestions.
 
-## Get started
+## Table of Contents
+1. [Features](#features)
+2. [Technology Stack](#technology-stack)
+3. [Getting Started](#getting-started)
+4. [Project Structure](#project-structure)
+5. [Development](#development)
+6. [Testing](#testing)
+7. [Contributing](#contributing)
 
-1. Install dependencies
+## Features
+- Natural language processing for calendar management
+- Intelligent scheduling suggestions
+- Cross-platform compatibility (iOS, Android, Web)
+- Modern, intuitive user interface
+- Real-time updates and notifications
+- Secure data handling
 
+## Technology Stack
+- **Frontend Framework**: React Native (v0.76.9)
+- **Development Platform**: Expo (v52.0.40)
+- **State Management**: Jotai (v2.12.2)
+- **Navigation**: Expo Router (v4.0.19)
+- **AI Integration**: Google Generative AI (v0.24.0)
+- **UI Components**: 
+  - Expo Blur
+  - Expo Image Picker
+  - React Native Reanimated
+  - React Native Gesture Handler
+
+## Getting Started
+
+### Prerequisites
+- Node.js (LTS version)
+- npm or yarn
+- Expo CLI
+- iOS Simulator or Android Emulator (for mobile development)
+
+### Installation
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/cal-ai.git
+   cd cal-ai
+   ```
+
+2. Install dependencies:
    ```bash
    npm install
+   # or
+   yarn install
    ```
 
-2. Start the app
-
+3. Set up environment variables:
    ```bash
-    npx expo start
+   cp DUMMY.env .env
+   ```
+   Fill in the required environment variables in the .env file.
+
+4. Start the development server:
+   ```bash
+   npm start
+   # or
+   yarn start
    ```
 
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
+## Project Structure
+```
+cal-ai/
+├── app/                  # Main application code
+│   ├── api/             # API integration
+│   ├── _layout.tsx      # Layout configuration
+│   ├── index.tsx        # Main entry point
+│   └── result.tsx       # Results page
+├── assets/              # Static assets
+├── atoms/               # Jotai atoms for state management
+├── components/          # Reusable components
+└── expo-env.d.ts        # TypeScript declarations
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+## Development
 
-## Learn more
+### Available Scripts
+- `npm start` - Start the Expo development server
+- `npm run android` - Run on Android
+- `npm run ios` - Run on iOS
+- `npm run web` - Run on web browser
+- `npm test` - Run tests
+- `npm run lint` - Run linting
+- `npm run reset-project` - Reset project configuration
 
-To learn more about developing your project with Expo, look at the following resources:
+### Code Style
+The project follows TypeScript best practices and uses ESLint for code linting. Ensure your code follows the established patterns and passes all linting rules.
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+## Testing
+The project uses Jest for testing. Run tests using:
+```bash
+npm test
+```
 
-## Join the community
+## Contributing
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
-Join our community of developers creating universal apps.
+## License
+This project is licensed under the MIT License - see the LICENSE file for details.
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+## Acknowledgments
+- Expo team for the excellent development platform
+- React Native community for continuous support
+- Google for the Generative AI capabilities
