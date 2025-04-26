@@ -1,7 +1,7 @@
-# Cal-AI: AI-Powered Calendar Assistant
+# Cal-AI: AI-Powered Calories tracking App
 
 ## Overview
-Cal-AI is a modern, AI-powered calendar assistant built with React Native and Expo. It leverages generative AI to help users manage their schedules more efficiently through natural language processing and intelligent scheduling suggestions.
+Cal-AI is a modern, AI-powered Calories tracking App assistant built with React Native and Expo. It leverages generative AI to help users manage their calorie intake more efficiently through natural language processing and intelligent scheduling suggestions.
 
 ## Table of Contents
 1. [Features](#features)
