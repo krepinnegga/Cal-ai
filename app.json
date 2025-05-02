@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Cal-ai",
-    "slug": "Cal-ai",
+    "name": "Nutri-Scan",
+    "slug": "Nutri-Scan",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",

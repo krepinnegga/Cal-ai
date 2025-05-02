@@ -2,6 +2,7 @@ import { Stack } from 'expo-router';
 import { useRouter } from 'expo-router';
 import {  View, TouchableOpacity } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
+import "../global.css";
 
 import Ionicons from '@expo/vector-icons/Ionicons';
 
