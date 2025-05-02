@@ -8,44 +8,76 @@ export async function POST(req: Request): Promise<Response> {
 
     const model = genAi.getGenerativeModel({ model: 'gemini-2.0-flash' });
 
-    const prompt = `Analyze this food image and provide detailed nutritional information in the following JSON format:
-    {
-      "foodAnalysis": {
-        "identifiedFood": "Name and detailed description of what you see in the image",
-        "portionSize": "Estimated portion size in grams",
-        "recognizedServingSize": "Estimated serving size in grams",
-        "nutritionFactsPerPortion": {
-          "calories": "Estimated calories",
-          "protein": "Estimated protein in grams",
-          "carbs": "Estimated carbs in grams",
-          "fat": "Estimated fat in grams",
-          "fiber": "Estimated fiber in grams",
-          "sugar": "Estimated sugar in grams",
-          "sodium": "Estimated sodium in mg",
-          "cholesterol": "Estimated cholesterol in mg"
-        },
-        "nutritionFactsPer100g": {
-          "calories": "Calories per 100g",
-          "protein": "Protein in grams per 100g",
-          "carbs": "Carbs in grams per 100g",
-          "fat": "Fat in grams per 100g",
-          "fiber": "Fiber in grams per 100g",
-          "sugar": "Sugar in grams per 100g",
-          "sodium": "Sodium in mg per 100g",
-          "cholesterol": "Cholesterol in mg per 100g"
-        },
-        "additionalNotes": [
-          "Any notable nutritional characteristics",
-          "Presence of allergens",
-          "Whether it's vegetarian/vegan/gluten-free if applicable"
-        ]
+    const prompt = `Analyze this food image and provide comprehensive nutritional information in the following JSON format:
+{
+  "foodAnalysis": {
+    "identifiedFood": "Name and detailed description",
+    "foodCategory": "Main food category (e.g., Fruits, Dairy, Grains)",
+    "healthScore": 0-100, // Nutritional quality score
+    "portionSize": "Estimated portion size in grams",
+    "recognizedServingSize": "Standard serving size in grams",
+    "nutritionFacts": {
+      "perPortion": {
+        "calories": "Estimated calories",
+        "protein": "Protein in grams",
+        "carbs": "Carbs in grams",
+        "fat": "Fat in grams",
+        "fiber": "Fiber in grams",
+        "sugar": "Sugar in grams",
+        "sodium": "Sodium in mg",
+        "cholesterol": "Cholesterol in mg"
+      },
+      "per100g": {
+        "calories": "Calories per 100g",
+        "protein": "Protein per 100g",
+        "carbs": "Carbs per 100g",
+        "fat": "Fat per 100g",
+        "fiber": "Fiber per 100g",
+        "sugar": "Sugar per 100g",
+        "sodium": "Sodium per 100g",
+        "cholesterol": "Cholesterol per 100g"
+      },
+      "macronutrientDistribution": {
+        "proteinPercentage": "Percentage of calories from protein",
+        "carbsPercentage": "Percentage of calories from carbs",
+        "fatPercentage": "Percentage of calories from fat"
       }
+    },
+    "micronutrients": [
+      {
+        "name": "Vitamin A",
+        "amount": "Amount",
+        "dailyValue": "Percentage of daily value"
+      }
+    ],
+    "healthBenefits": [
+      "Key health benefits of this food"
+    ],
+    "potentialConcerns": [
+      "Any dietary concerns or allergens"
+    ],
+    "preparationTips": [
+      "Best ways to prepare for maximum nutrition"
+    ],
+    "storageRecommendations": [
+      "How to properly store this food"
+    ],
+    "sustainabilityInfo": {
+      "carbonFootprint": "Estimated CO2 per serving",
+      "seasonality": "When this food is in season"
     }
-    
-    Ensure the response is in valid JSON format exactly as specified above, without any markdown formatting.
-    Provide realistic estimates based on typical portion sizes and nutritional databases.
-    Be as specific and accurate as possible in identifying the food and its components.
-    Make sure to calculate both portion-based and per 100g nutritional values for easy comparison.`;
+  }
+}
+
+Additional instructions:
+1. Provide realistic estimates based on scientific nutritional databases
+2. Include at least 3 micronutrients when available
+3. Give specific, actionable health advice
+4. Format all numbers without units in the JSON (e.g., 25 not 25g)
+5. Never return markdown formatting, only pure JSON
+6. For ice cream do not include parfait.
+`;
+
 
     const result = await model.generateContent([prompt, image]);
     const response =  result.response;

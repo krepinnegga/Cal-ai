@@ -4,62 +4,91 @@ import * as ImagePicker from 'expo-image-picker';
 import { useSetAtom } from 'jotai';
 import { analysisAtom } from '@/atoms/analysis';
 import { Ionicons, MaterialIcons } from '@expo/vector-icons';
-import { LinearGradient } from 'expo-linear-gradient';
 import Animated, { FadeIn, FadeInDown } from 'react-native-reanimated';
+import { toast } from 'sonner-native';
 const AppIcon = require('@/assets/images/AppIcon.png');
+
 
 export default function Index() {
   const router = useRouter();
   const setAnalysis = useSetAtom(analysisAtom);
 
+
+
   const captureImage = async (camera = false) => {
-    // Development shortcut
-    // if (__DEV__) {
-    //   setAnalysis(fakeResponse);
-    //   router.push('/result');
-    //   return;
-    // }
-
     let result;
-    if (camera) {
-      await ImagePicker.requestCameraPermissionsAsync();
-      result = await ImagePicker.launchCameraAsync({
-        mediaTypes: ['images'],
-        quality: 1,
-        base64: true,
-      });
-    } else {
-      result = await ImagePicker.launchImageLibraryAsync({
-        mediaTypes: ['images'],
-        quality: 1,
-        base64: true,
-      });
-    }
-
-    if (!result.canceled) {
-      try {
-        const response = await fetch('/api/analyze', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            image: {
-              inlineData: {
-                data: result.assets[0].base64,
-                mimeType: 'image/jpeg',
-              },
-            },
-          }),
+    try {
+      if (camera) {
+        await ImagePicker.requestCameraPermissionsAsync();
+        result = await ImagePicker.launchCameraAsync({
+          mediaTypes: ['images'],
+          quality: 1,
+          base64: true,
         });
-        const data = await response.json();
-        const foodAnalysis = data.data.foodAnalysis;
-        foodAnalysis.image = result.assets[0].uri;
-        setAnalysis(foodAnalysis);
-        router.push('/result');
-      } catch (error) {
-        console.error(error);
+      } else {
+        result = await ImagePicker.launchImageLibraryAsync({
+          mediaTypes: ['images'],
+          quality: 1,
+          base64: true,
+        });
       }
+
+      if (!result.canceled) {
+        // Show loading toast immediately
+        const toastId = toast.loading('Analyzing your meal...', {
+          position: 'top-center'
+        });
+
+        // Navigate to results page
+        router.push({
+          pathname: '/result',
+          params: { imageUri: result.assets[0].uri }
+        });
+
+        toast.promise(
+            fetch('/api/analyze', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                image: {
+                  inlineData: {
+                    data: result.assets[0].base64,
+                    mimeType: 'image/jpeg',
+                  },
+                },
+              }),
+            })
+                .then(response => {
+                  if (!response.ok) {
+                    throw new Error('Analysis failed');
+                  }
+                  return response.json();
+                })
+                .then(data => {
+                  const foodAnalysis = data.data.foodAnalysis;
+                  foodAnalysis.image = result.assets[0].uri;
+                  setAnalysis(foodAnalysis);
+                  return foodAnalysis;
+                }),
+            {
+              loading: 'Analyzing nutritional content...',
+              success: (foodAnalysis) => `Successfully analyzed ${foodAnalysis.identifiedFood}`,
+              error: (err: any) => `Analysis failed: ${err.message}`,
+            }
+        );
+
+        // Dismiss the initial loading toast
+        toast.dismiss(toastId);
+      }
+    } catch (error: any) {
+      console.error(error);
+      toast.error('Failed to process image', {
+        description: error.message,
+        position: 'top-center'
+      });
+      router.back();
     }
   };
 
@@ -81,11 +110,6 @@ export default function Index() {
             entering={FadeIn.delay(300)}
             className="mb-10"
         >
-          {/*<Image*/}
-          {/*    source={{ uri: 'https://images.unsplash.com/photo-1606787366850-de6330128bfc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80' }}*/}
-          {/*    className="w-[280px] h-[200px] rounded-2xl shadow-lg shadow-primary/20 border-2 border-primary/10"*/}
-          {/*    resizeMode="cover"*/}
-          {/*/>*/}
           <Image
               source={AppIcon}
               className="w-[280px] h-[240px] rounded-2xl shadow-lg shadow-primary/20 border-2 border-primary/10"

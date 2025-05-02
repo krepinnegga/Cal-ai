@@ -13,13 +13,18 @@ NutriScan is a modern, AI-powered food analysis application built with React Nat
 7. [Contributing](#contributing)
 
 ## Features
-- Advanced food recognition through image analysis
-- Detailed nutritional breakdown including calories, macronutrients, and micronutrients
-- Cross-platform compatibility (iOS, Android, Web)
-- Modern, intuitive user interface with animated components
-- Real-time AI-powered analysis using Gemini-2.0-flash
-- Comprehensive portion size estimation
-- Additional dietary information (allergens, dietary restrictions)
+- 🚀 Instant food recognition through AI image analysis
+- 📊 Comprehensive nutritional breakdown:
+    - Calories and macronutrients
+    - Micronutrients (Vitamins/Minerals)
+    - Portion vs. 100g comparisons
+    - Health impact assessment
+- 📱 Cross-platform compatibility (iOS, Android, Web)
+- 🎨 Modern UI with:
+    - Animated transitions
+    - Interactive nutrition cards
+    - Visual health scoring
+- 🔔 Real-time feedback with toast notifications
 
 ## Technology Stack
 - **Frontend Framework**: React Native (v0.76.9)
@@ -33,6 +38,7 @@ NutriScan is a modern, AI-powered food analysis application built with React Nat
   - React Native Reanimated
   - React Native Gesture Handler
   - Linear Gradient
+  - Toast notifications for analysis status
 
 ## Getting Started
 
@@ -79,6 +85,9 @@ nutriscan/
 ├── app/                  # Main application code
 │   ├── api/             # API integration with Gemini AI
 │   │   └── analyze+api.ts # Food analysis endpoint
+|   ├── components/
+│   ├── LoadingSkeleton.tsx # New animated skeleton
+│   └── PulseAnimation.tsx  # Reusable pulse effect
 │   ├── _layout.tsx      # Layout configuration
 │   ├── index.tsx        # Main camera/gallery interface
 │   └── result.tsx       # Analysis results display
