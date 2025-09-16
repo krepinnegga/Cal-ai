@@ -6,7 +6,7 @@ import { analysisAtom } from '@/atoms/analysis';
 import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 import Animated, { FadeIn, FadeInDown } from 'react-native-reanimated';
 import { toast } from 'sonner-native';
-const AppIcon = require('@/assets/images/AppIcon.png');
+import AppIcon from '../assets/images/AppIcon.png';
 
 
 export default function Index() {
