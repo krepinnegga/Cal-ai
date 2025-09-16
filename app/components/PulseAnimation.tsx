@@ -16,13 +16,13 @@ interface PulseAnimationProps extends ViewProps {
 }
 
 export default function PulseAnimation({
-                                           children,
-                                           duration = 1000,
-                                           minOpacity = 0.6,
-                                           maxOpacity = 0.9,
-                                           style,
-                                           ...props
-                                       }: PulseAnimationProps) {
+    children,
+    duration = 1000,
+    minOpacity = 0.6,
+    maxOpacity = 0.9,
+    style,
+    ...props
+}: PulseAnimationProps) {
     const pulse = useSharedValue(minOpacity);
 
     useEffect(() => {
